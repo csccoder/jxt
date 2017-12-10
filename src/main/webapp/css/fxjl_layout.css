@@ -1,0 +1,278 @@
+#banner {
+    position: relative;
+}
+
+#banner .topic {
+    position: absolute;
+    bottom: 15px;
+    left: 40px;
+    color: #fff;
+}
+
+#banner .topic h3 {
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #ff844a;
+    letter-spacing: 4px
+}
+
+#banner .topic p {
+    letter-spacing: 4px;
+}
+
+.main {
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-top: 25px;
+    background-color: #fff;
+    overflow: hidden;
+    max-width: 1000px;
+
+}
+
+.mainContent {
+    background-color: #fff;
+    margin-top: 25px;
+}
+
+.articleList {
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-top: 25px;
+    background-color: #fff;
+    overflow: hidden;
+
+}
+
+.articleList li {
+    list-style-type: none;
+    clear: both;
+
+}
+
+.articleList li .line {
+    padding-left: 0px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+}
+
+.articleList li .line a {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+}
+
+.articleList li .line * {
+    float: left;
+}
+
+.articleList li .line .title {
+    font-weight: bold;
+}
+
+.articleList li .line .badge {
+    margin-top: 5px;
+    margin-right: 8px;
+}
+
+.articleList li .line .author {
+    float: right;
+    font-size: 14px;
+    color: #a0a0a0;
+    margin-right: 10px;
+}
+
+.articleList li .article .section {
+    width: 100%;
+    height: 40px;
+    letter-spacing: 1px;
+    overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+    text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+}
+
+.article {
+    padding: 20px 0px;
+    border-bottom: 1px dashed #dbdbdb;
+}
+
+.panel {
+    width: 205px;
+    margin-top: 25px;
+
+    border: 1px solid #dbdbdb;
+    padding: 0 15px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.panel h3 {
+    border-bottom: 1px solid #dbdbdb;
+    padding-bottom: 10px;
+    font-family: "Microsoft YaHei UI";
+}
+
+.panel ul {
+    padding-left: 0px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.panel ul li {
+    float: left;
+    list-style-type: none;
+    padding: 2px 5px;
+    margin-top: 5px;
+    margin-right: 5px;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+    background-color: #ff7700;
+
+}
+
+.panel ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+body {
+    padding-bottom: 50px;
+    background-attachment: fixed;
+    background-color: #cbe8fb;
+    background-image: url(../img/bg.jpg);
+    background-repeat: repeat-x;
+    background-position: center 0;
+}
+
+#pageTool {
+    margin-top: 40px;
+}
+
+#pageTool ul {
+    overflow: hidden;
+    width: 397px;
+    margin: 0 auto;
+}
+
+#pageTool ul li {
+    float: left;
+    list-style-type: none;
+    padding: 2px 10px;
+    border: 2px solid #ff7700;
+    background: #fff;
+    margin: 0 5px;
+    border-radius: 14px;
+}
+
+#pageTool ul li a {
+    color: #000;
+    text-decoration: none;
+}
+
+#pageTool ul li:hover a {
+    color: #fff;
+}
+
+#pageTool ul li:hover {
+    color: #fff;
+    background: #ff7700;
+    text-decoration: none;
+}
+
+#pageTool ul li:hover input {
+    color: #fff;
+    background: #ff7700;
+
+}
+
+#pageTool ul li input {
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    border: 0;
+    border-bottom: 1px solid #000;
+}
+
+.mainContent .title {
+    padding: 20px 20px;
+    margin-top: 20px;
+
+}
+
+.mainContent .content {
+    padding: 15px 20px;
+}
+
+/*****************************************/
+h3.title {
+    color: #1b1b1b;
+    font-weight: 400;
+    font-size: 16px;
+    margin: 0px 0 0px 0px;
+    padding-left: 30px;
+    padding-top: 15px;
+    border-top: 3px solid #ff7700;
+
+
+}
+
+.post-reply .yellow-line {
+    border-bottom: 1px solid #f70;
+}
+
+.replyList {
+    width: 100%;
+}
+
+.replyList li {
+    list-style-type: none;
+    border-bottom: 1px solid #dbdbdb;
+}
+.replyList li:last-child{
+    border-bottom: none;
+}
+
+.replyList li .wrap {
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+
+.wrap > div.pull-left {
+    width: 15%;
+    border-right: 1px solid #dbdbdb;
+    height: auto;
+    min-height: 155px;
+}
+
+.wrap > div > img {
+    margin-top: 30px;
+    width: 80px;
+    height: 80px;
+    background: url("../img/share/replyer.jpg") no-repeat center;
+    background-size: cover;
+}
+
+.wrap > div > p {
+    padding-left: 20px;
+    color: #ff8f2b;
+    font-weight: bold;
+    margin-top: 15px;
+}
+.reply_content{
+    width: 85%;!important;
+    height: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 30px;
+    padding-bottom: 60px;
+}
+.reply_time{
+    text-align: right;
+    padding-right: 20px;
+    color: #dbdbdb;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}

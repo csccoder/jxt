@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jxt.mapper.GuardianMapper">
+	
+	<resultMap id="guardianMap" type="guardian">
+		<id property="id" column="id" />
+		<association property="student" column="child_id" select="cn.jxt.mapper.StudentMapper.queryById"></association>
+	</resultMap>
+
+	<select id="queryById" parameterType="string" resultMap="guardianMap">
+		select * from guardian where id=#{id};
+	</select>
+
+
+	<resultMap id="guardianMap2" type="guardian">
+		<id property="id" column="guardian_id"></id>
+		<result property="name" column="guardian_name"></result>
+		<result property="phone" column="phone"></result>
+		<result property="relation" column="relation"></result>
+		<result property="company" column="company"></result>
+		<result property="address" column="address"></result>
+		<association property="student" resultMap="studentMap"></association>
+	</resultMap>
+	<resultMap id="studentMap" type="student">
+		<id property="id" column="stu_id"></id>
+		<result property="name" column="stu_name"></result>
+		<result property="sex" column="stu_sex"></result>
+		<result property="job" column="job"></result>
+		<result property="birth" column="birth"></result>
+		<result property="school" column="school"></result>
+		<result property="grade" column="grade"></result>
+		<result property="classname" column="classname"></result>
+	</resultMap>
+	<select id="queryGuardiansByTeacherId" parameterType="string" resultMap="guardianMap2">
+		SELECT
+			guardian.id 'guardian_id',
+			guardian. NAME 'guardian_name',
+			guardian.phone,
+			relation,
+			company,
+			address,
+			student.id 'stu_id',
+			student. NAME 'stu_name',
+			student.sex 'stu_sex',
+			student.job,
+			student.birth,
+			student.school,
+			student.grade,
+			student.classname
+		FROM
+			teacher
+		INNER JOIN guardian
+		INNER JOIN student ON teacher.id = student.teacher_id
+		AND student.id = guardian.child_id
+		WHERE
+			teacher.id = #{teacherId}
+		ORDER BY
+			student.id DESC;
+	</select>
+	
+	<insert id="addGuardian" parameterType="guardian">
+		insert into guardian(id,name,phone,relation,child_id,company,address) values(#{id},#{name},#{phone},#{relation},#{childId},#{company},#{address});
+	</insert>
+
+
+	<select id="getGuadianListByStudentIds" resultMap="guardianMap2">
+		select
+			student.id 'stu_id',student.`name` 'stu_name',guardian.id 'guardian_id',guardian.`name` 'guardian_name',guardian.phone 'phone'
+		from
+			student inner join guardian
+		where
+			student.id=guardian.child_id
+			and student.id in <foreach collection="studentIds" item="studentId" separator="," open="(" close=")">#{studentId}</foreach>;
+	</select>
+</mapper>

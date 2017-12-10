@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jxt.mapper.ReplyMapper">
+	<select id="queryMyReply"  resultType="reply">
+		SELECT
+			reply.id,reply.share_id,reply.user_id,title,reply_content,reply_time
+		FROM
+			share
+		INNER JOIN reply
+		WHERE
+			share.id = reply.share_id
+		AND reply.user_id = #{userId}
+		ORDER BY
+			reply_time DESC
+		limit #{startLine},#{pageSize}
+	</select>
+
+	<select id="queryReplyListByShareId" resultType="reply">
+		select
+			reply.*,user.name 'user_name'
+		from
+			reply inner join `user`
+			on reply.user_id=`user`.id
+		WHERE share_id=#{shareId}
+		order by reply_time desc
+	</select>
+</mapper>

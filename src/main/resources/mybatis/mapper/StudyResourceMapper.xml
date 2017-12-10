@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jxt.mapper.StudyResourceMapper">
+	<resultMap id="myCollerctStudyResourceMap" type="studyResource">
+		<id property="id" column="id"></id>
+		<result property="title" column="title"></result>
+		<result property="content" column="content"></result>
+		<result property="createTime" column="create_time"></result>
+		<result property="updateTime" column="update_time"></result>
+		<association property="category" resultMap="myCollerctStudyResourceCategoryMap"></association>
+	</resultMap>
+	<resultMap id="myCollerctStudyResourceCategoryMap" type="studyResourceCategory">
+		<result property="categoryName" column="category_name"></result>
+	</resultMap>
+	<select id="queryMyCollect"  resultType="studyResource">
+		SELECT
+			studyResource.id,
+			studyResource.title,
+			category_name,
+			studyResource.content,
+			studyResource.create_time,
+			studyResource.update_time
+		FROM
+			studyResource
+		INNER JOIN collect
+		INNER JOIN studyResourceCategory ON collect.resource_id = studyResource.id
+		AND studyResource.category_id = studyResourceCategory.id
+		WHERE
+			collect.user_id = #{userId}
+		ORDER BY
+			update_time DESC
+		LIMIT #{startLine},#{pageSize}
+	</select>
+	
+	<select id="queryMyCollectCount" resultType="int">
+		select
+			count(1)
+		from collect
+		where collect.user_id=#{userId};
+	</select>
+	
+	<resultMap id="studyResourceMap" type="studyResource">
+		<id property="id" column="id"></id>
+		<result property="title" column="title"></result>
+		<result property="content" column="content"></result>
+		<result property="createTime" column="create_time"></result>
+		<result property="updateTime" column="update_time"></result>
+		<association property="user" resultMap="userMap"></association>
+		<association property="category" resultMap="categoryMap"></association>
+	</resultMap>
+
+	<resultMap id="userMap" type="user">
+		<result property="id" column="user_id"></result>
+		<result property="name" column="user_name"></result>
+	</resultMap>
+	<resultMap id="categoryMap" type="studyResourceCategory">
+		<result property="id" column="category_id"></result>
+		<result property="categoryName" column="category_name"></result>
+	</resultMap>
+	<select id="queryStudyResourceListByPage" resultMap="studyResourceMap">
+		select
+			tmp.*,
+			IFNULL(u.`name` ,'未知')'user_name'
+		FROM
+		(
+			SELECT
+			a.id,
+			a.title,
+			a.user_id,
+			a.category_id,
+			b.category_name,
+			a.content,
+			a.create_time,
+			a.update_time
+		FROM
+			(
+				SELECT
+					studyResource.id,
+					studyResource.title,
+					studyResource.user_id,
+					studyResource.category_id,
+					studyResource.content,
+					studyResource.create_time,
+					studyResource.update_time
+				FROM
+					studyResource
+				ORDER BY
+					update_time DESC
+				LIMIT #{startLine},#{pageSize}
+			) AS a
+		INNER JOIN studyResourceCategory b ON a.category_id = b.id
+		) tmp
+		left JOIN `user` u
+		on tmp.user_id = u.id
+	</select>
+	
+	<select id="queryStudyResourceListByPageAndCategoryId" resultMap="studyResourceMap">
+		select
+			tmp.*,
+			IFNULL(u.`name` ,'未知')'user_name'
+		FROM
+		(
+			SELECT
+			a.id,
+			a.title,
+			a.user_id,
+			a.category_id,
+			b.category_name,
+			a.content,
+			a.create_time,
+			a.update_time
+		FROM
+			(
+				SELECT
+					studyResource.id,
+					studyResource.title,
+					studyResource.user_id,
+					studyResource.category_id,
+					studyResource.content,
+					studyResource.create_time,
+					studyResource.update_time
+				FROM
+					studyResource
+				where studyResource.category_id=#{categoryId}
+				ORDER BY
+					update_time DESC
+				LIMIT #{startLine},#{pageSize}
+			) AS a
+		INNER JOIN studyResourceCategory b ON a.category_id = b.id
+		) tmp
+		left JOIN `user` u
+		on tmp.user_id = u.id
+	</select>
+	
+	<select id="queryStudyResourceDetail" resultMap="studyResourceMap">
+		select
+			tmp.*,
+			IFNULL(u.`name` ,'未知')'user_name'
+		FROM
+		(
+			SELECT
+			a.id,
+			a.title,
+			a.user_id,
+			a.category_id,
+			b.category_name,
+			a.content,
+			a.create_time,
+			a.update_time
+		FROM
+			(
+				SELECT
+					studyResource.id,
+					studyResource.title,
+					studyResource.user_id,
+					studyResource.category_id,
+					studyResource.content,
+					studyResource.create_time,
+					studyResource.update_time
+				FROM
+					studyResource
+				where studyResource.id=#{studyResourceId}
+			) AS a
+		INNER JOIN studyResourceCategory b ON a.category_id = b.id
+		) tmp
+		left JOIN `user` u
+		on tmp.user_id = u.id
+	</select>
+	
+	<insert id="addStudyResource" useGeneratedKeys="true" keyProperty="id">
+		insert into studyResource(title,user_id,category_id,content,create_time,update_time) values(#{title},#{user.id},#{category.id},#{content},#{createTime},#{updateTime})
+	</insert>
+
+	<insert id="addCollect">
+		insert into collect(user_id,resource_id) values(#{userId},#{studyResourceId});
+	</insert>
+
+	<delete id="cancelCollect">
+		delete from collect where user_id=#{userId} and resource_id=#{studyResourceId};
+	</delete>
+
+	<select id="queryIsCollectByUserIdAndResourceId" resultType="int">
+		select count(1) from collect where user_id=#{userId} and resource_id=#{studyResourceId};
+	</select>
+	
+	<update id="editStudyResource" parameterType="studyResource">
+		update studyResource set title=#{title},category_id=#{category.id},content=#{content},user_id=#{user.id},update_time=#{updateTime} where id=#{id};
+	</update>
+	
+	<select id="queryStudyResourceCountByCategoryId" resultType="int">
+		select count(1) from studyResource where category_id=#{categoryId};
+	</select>
+</mapper>

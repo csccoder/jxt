@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jxt.mapper.StudentMapper">
+	
+	<resultMap id="studentMap" type="student">
+		<id property="id" column="id" />
+		<result property="sex" column="sex" />
+	</resultMap>
+
+	<select id="queryById" parameterType="int" resultMap="studentMap">
+		select * from student where id=#{id};
+	</select>
+
+	<delete id="deleteByStudentId" parameterType="int">
+		delete from student where id=#{studentId};
+		DELETE FROM `user` WHERE id = (
+				SELECT
+					guardian.id
+				FROM
+					guardian
+				WHERE
+					child_id = #{studentId}
+			);
+
+	</delete>
+
+</mapper>

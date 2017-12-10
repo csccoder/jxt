@@ -1,0 +1,41 @@
+#nav li{
+    list-style-type: none;
+    width: 140px;
+    height: 44px;
+    border-bottom: 1px solid #dbdbdb;
+    padding-left: 20px;
+    color: #000000;
+}
+#nav li:last-child{
+    border: none;
+}
+#nav li a{
+    color: inherit;
+    display: block;
+    line-height: 44px;
+    text-decoration: none;
+}
+
+#nav .nav_icon{
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-right: 5px;
+    margin-left: 9px;
+}
+#nav li:hover{
+    color: #ff8f2b;
+}
+#nav li:hover a{
+    color: inherit;
+    text-decoration: none;
+}
+
+
+
+#nav .nav_active{
+    background: #ff8f2b!important;
+    color: #ffffff!important;
+}
+
+

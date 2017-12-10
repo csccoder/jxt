@@ -1,0 +1,236 @@
+
+#topic>div{
+    overflow: hidden;
+}
+#topic h3{
+    width: 135px;
+    height: 52px;
+    line-height: 52px;
+    border-bottom: 2px #ff8f2b solid;
+    padding-left: 15px;
+    float: left;
+}
+#topic a{
+    padding-left: 880px;
+    height: 29px;
+    padding-right: 10px;
+    margin-top: 44px;
+    text-align: right;
+    vertical-align: text-bottom;
+    display: inline-block;
+    font-size: 10px;
+    border-bottom: 2px #ebebeb solid;
+    color: #909090;
+    text-decoration: none;
+}
+.main{
+    max-width: 900px;
+}
+
+.main >div{
+    padding-left: 40px;
+
+}
+
+.main .row p>span{
+    font-weight: bold;
+}
+
+.main .normalUl li{
+    border-bottom: dashed 1px #dbdbdb;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+}
+.main .normalUl li>a{
+    text-decoration: none;
+    display: inline-block;
+    float: left;
+}
+.main .normalUl li i{
+    float: right;
+}
+#pageTool{
+    margin-top: 40px;
+}
+#pageTool ul{
+    overflow: hidden;
+    width: 397px;
+    margin: 0 auto;
+}
+#pageTool ul li{
+    float: left;
+    list-style-type: none;
+    padding: 2px 10px;
+    border:2px solid #ff7700;
+    background: #fff;
+    margin: 0 5px;
+    border-radius: 14px;
+}
+#pageTool ul li a{
+    color: #000;
+    text-decoration: none;
+}
+#pageTool ul li:hover a{
+    color: #fff;
+}
+#pageTool ul li:hover{
+    color: #fff;
+    background: #ff7700;
+    text-decoration: none;
+}
+#pageTool ul li:hover input{
+    color: #fff;
+    background: #ff7700;
+
+}
+#pageTool ul li input{
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    border: 0;
+    border-bottom: 1px solid #000;
+}
+
+.commentsColumn li{
+    max-height: 150px; !important;
+    border-bottom: dashed 1px #dbdbdb;
+    line-height: 40px;
+    font-size: 14px;
+
+    overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+    text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+}
+.commentsColumn .reply a{
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+}
+
+.commentsColumn .reply a>span{
+    cursor: none;
+}
+
+.messagesColumn li{
+    max-height: 340px; !important;
+    border-bottom: dashed 1px #dbdbdb;
+    line-height: 40px;
+    font-size: 14px;
+
+}
+.messagesColumn .reply{
+    height: 160px;
+    overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+    text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+}
+.messagesColumn li>div{
+    padding:15px 0px;
+
+}
+.messagesColumn .reply a{
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+}
+
+.messagesColumn .reply a>span{
+    cursor: none;
+}
+
+
+#commentModal{
+    margin-top: 10%;
+}
+#messageModal{
+    margin-top: 10%;
+}
+#toolbar{
+    overflow: hidden;
+    padding-left: 0px;
+}
+#toolbar li{
+    float: left;
+    list-style-type: none;
+    margin-right: 10px;
+}
+#toolbar li button{
+    width:60px;
+}
+#toolbar li:last-child{
+    margin-right:0px;
+}
+#studentInfoModal .modal-dialog{
+    margin-top: 10%;
+}
+#guardianInfoModal .modal-dialog{
+    margin-top: 10%;
+}
+
+/**
+短信发送 css
+ */
+#receiverSelectList{
+    width: 138px;
+    height: 340px;
+    max-height: 340px;
+    border:2px solid #ff8f2b;
+    border-radius: 8px;
+    overflow: scroll;
+    padding-left: 0px;
+    overflow-x: hidden;
+}
+
+#receiverSelectList li{
+    width: 120px;
+    list-style-type: none;
+    padding: 4px 4px;
+}
+#receiverSelectList li>label{
+    width: 82px;
+    margin: 0 auto;
+    display: block;
+}
+#receiverSelectList li>label>div{
+    margin-left: 20px;
+}
+/*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+#receiverSelectList::-webkit-scrollbar{
+    width: 4px;
+    height: 16px;
+    background-color: 	#fff;
+}
+/*定义滚动条的轨道，内阴影及圆角*/
+#receiverSelectList::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    border-radius: 10px;
+    background-color: 	#fff;
+}
+/*定义滑块，内阴影及圆角*/
+#receiverSelectList::-webkit-scrollbar-thumb{
+    /*width: 10px;*/
+    height: 20px;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #9FB6CD;
+}
+#leftReceiverOperationDiv{
+    width: 138px;
+}
+#leftReceiverOperationDiv>label{
+    width: 63px;
+    margin:0 auto;
+    display: block;
+    padding-bottom: 20px;
+}
+#leftReceiverOperationDiv>label>div{
+    margin-right: 15px;
+}
+
+
+#noticeInfoModal .modal-dialog{
+    margin-top: 10%;
+}
+
+#noticeDetailModal .modal-dialog{
+    margin-top: 10%;
+}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jxt.mapper.MessageMapper">
+	<resultMap id="ReceiveMessageMap" type="message">
+		<id property="id" column="id"></id>
+		<result property="content" column="content"></result>
+		<result property="sendTime" column="send_time"></result>
+		<association property="sender"  resultMap="senderMap"></association>
+	</resultMap>
+	<resultMap id="senderMap" type="user">
+		<id property="id" column="sender_id"></id>
+		<result property="name" column="sender_name"></result>
+	</resultMap>
+	<select id="queryReceiveMessage"  resultMap="ReceiveMessageMap">
+		SELECT
+			message.id as id,
+			content,
+			sender_id,
+			NAME AS sender_name,
+			send_time
+		FROM
+			message
+		INNER JOIN receiverRecord
+		INNER JOIN user ON message.id = receiverRecord.message_id
+		AND message.sender_id = user.id
+		WHERE
+			receiverRecord.receiver_id =#{userId}
+		ORDER BY
+			send_time DESC
+		limit #{startLine},#{pageSize};
+	</select>
+
+	<select id="queryReceiveMessageCount" parameterType="string" resultType="int">
+		select count(1) from receiverRecord where receiver_id=#{userId};
+	</select>
+
+	<insert id="saveSendMessageRecord" parameterType="message" keyProperty="id" useGeneratedKeys="true">
+		insert into message(content,send_time,sender_id) values(#{content},#{sendTime},#{sender.id})
+	</insert>
+	
+	<insert id="saveReceiveMessageRecord">
+		insert into receiverRecord(message_id,receiver_id) values(#{messageId},#{guardianId})
+	</insert>
+
+</mapper>

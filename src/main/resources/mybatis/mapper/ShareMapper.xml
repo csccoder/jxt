@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jxt.mapper.ShareMapper">
+	<resultMap id="myShareMap" type="share">
+		<id property="id" column="id"></id>
+		<result property="title" column="title"></result>
+		<result property="content" column="content"></result>
+		<result property="createTime" column="create_time"></result>
+		<result property="updateTime" column="update_time"></result>
+		<association property="category" resultMap="myShareCategoryMap"></association>
+	</resultMap>
+	<resultMap id="myShareCategoryMap" type="shareCategory">
+		<result property="categoryName" column="category_name"></result>
+	</resultMap>
+	<select id="queryMyShare"  resultMap="myShareMap">
+		SELECT
+			share.id,
+			share.title,
+			category_name,
+			share.content,
+			share.create_time,
+			share.update_time
+		FROM
+			share
+		INNER JOIN shareCategory ON  share.category_id = shareCategory.id
+		WHERE
+			share.sharer_id	 = #{userId}
+		ORDER BY
+			update_time DESC
+		LIMIT #{startLine},#{pageSize}
+	</select>
+
+	<resultMap id="shareMap" type="share">
+		<id property="id" column="id"></id>
+		<result property="title" column="title"></result>
+		<result property="content" column="content"></result>
+		<result property="replyNum" column="reply_num"></result>
+		<result property="createTime" column="create_time"></result>
+		<result property="updateTime" column="update_time"></result>
+		<association property="sharer" resultMap="sharerMap"></association>
+		<association property="category" resultMap="categoryMap"></association>
+	</resultMap>
+	<resultMap id="sharerMap" type="user">
+		<id property="id" column="sharer_id"></id>
+		<result property="name" column="sharer_name"></result>
+	</resultMap>
+	<resultMap id="categoryMap" type="shareCategory">
+		<id property="id" column="category_id"></id>
+		<result property="categoryName" column="category_name"></result>
+	</resultMap>
+
+
+
+
+	<select id="queryShareListByPage" resultMap="shareMap">
+		SELECT
+	tb1.*, IFNULL(tb2.replyNum, 0) 'reply_num'
+FROM
+	(
+		SELECT
+			a.id,
+			a.title,
+			a.content,
+			a.category_id,
+			b.category_name,
+			a.sharer_id,
+			c. NAME 'sharer_name',
+			a.create_time,
+			a.update_time
+		FROM
+			`share` a
+		INNER JOIN shareCategory b
+		INNER JOIN `user` c ON a.category_id = b.id
+		AND a.sharer_id = c.id
+		ORDER BY
+			update_time DESC
+		LIMIT #{startLine},#{pageSize}
+	) AS tb1
+	LEFT JOIN (
+		SELECT
+			reply.share_id,
+			count(1) 'replyNum'
+		FROM
+			reply
+		GROUP BY
+			reply.share_id
+	) AS tb2 ON tb1.id = tb2.share_id
+	</select>
+
+	<select id="queryShareListByPageAndCategoryId" resultMap="shareMap">
+		SELECT
+		tb1.*, IFNULL(tb2.replyNum, 0) 'reply_num'
+		FROM
+		(
+		SELECT
+		a.id,
+		a.title,
+		a.content,
+		a.category_id,
+		b.category_name,
+		a.sharer_id,
+		c. NAME 'sharer_name',
+		a.create_time,
+		a.update_time
+		FROM
+		`share` a
+		INNER JOIN shareCategory b
+		INNER JOIN `user` c ON a.category_id = b.id
+		AND a.sharer_id = c.id
+		where a.category_id=#{categoryId}
+		ORDER BY
+		update_time DESC
+		LIMIT #{startLine},#{pageSize}
+		) AS tb1
+		LEFT JOIN (
+		SELECT
+		reply.share_id,
+		count(1) 'replyNum'
+		FROM
+		reply
+		GROUP BY
+		reply.share_id
+		) AS tb2 ON tb1.id = tb2.share_id
+	</select>
+
+
+	<resultMap id="shareMap2" type="share">
+		<id property="id" column="id"></id>
+		<result property="title" column="title"></result>
+		<result property="content" column="content"></result>
+		<result property="createTime" column="create_time"></result>
+		<result property="updateTime" column="update_time"></result>
+		<association property="sharer" resultMap="sharerMap"></association>
+		<association property="category" resultMap="categoryMap"></association>
+	</resultMap>
+	<select id="queryShareDetail" parameterType="int" resultMap="shareMap2">
+		SELECT
+			share_detail.id,
+			share_detail.title,
+			share_detail.content,
+			share_detail.category_id,
+			shareCategory.category_name,
+			share_detail.sharer_id,
+			`user` . name 'sharer_name',
+			share_detail.create_time,
+			share_detail.update_time
+		FROM
+			(
+				SELECT
+					a.id,
+					a.title,
+					a.content,
+					a.category_id,
+					a.sharer_id,
+					a.create_time,
+					a.update_time
+				FROM
+					`share` a
+				WHERE
+					a.id = #{shareId}
+			) AS share_detail
+		INNER JOIN `user`
+		INNER JOIN shareCategory ON share_detail.sharer_id = `user`.id
+		AND share_detail.category_id = shareCategory.id
+	</select>
+
+	<select id="queryHotShareByMaxSize" resultMap="shareMap">
+		SELECT
+			tb1.*, IFNULL(tb2.replyNum, 0) 'reply_num'
+		FROM
+			(
+				SELECT
+					a.id,
+					a.title,
+					a.content,
+					a.category_id,
+					b.category_name,
+					a.sharer_id,
+					c. NAME 'sharer_name',
+					a.create_time,
+					a.update_time
+				FROM
+					`share` a
+				INNER JOIN shareCategory b
+				INNER JOIN `user` c ON a.category_id = b.id
+				AND a.sharer_id = c.id
+			) AS tb1
+			LEFT JOIN (
+				SELECT
+					reply.share_id,
+					count(1) 'replyNum'
+				FROM
+					reply
+				GROUP BY
+					reply.share_id
+			) AS tb2 ON tb1.id = tb2.share_id
+		order by replyNum desc,update_time desc
+		limit #{maxSize}
+	</select>
+	
+	<insert id="addShare" parameterType="share" keyProperty="id" useGeneratedKeys="true">
+		insert into share(title,category_id,content,sharer_id,create_time,update_time) values(#{title},#{category.id},#{content},#{sharer.id},#{createTime},#{updateTime});
+	</insert>
+	
+	<select id="queryMyShareCount" resultType="int">
+		select count(1) from share where sharer_id=#{userId};
+	</select>
+	
+	<select id="queryShareCountByCategoryId" resultType="int">
+		select count(1) from share where category_id=#{categoryId};
+	</select>
+</mapper>

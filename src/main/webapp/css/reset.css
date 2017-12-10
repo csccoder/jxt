@@ -1,0 +1,82 @@
+@media (min-width: 768px) {
+    .navbar-nav > li > a {
+        padding: 15px 30px;
+    }
+
+    .navbar {
+        margin-bottom: 0px;
+    }
+    .carousel-inner{
+        min-width: 1920px;
+        max-height: 360px;
+    }
+    .carousel-inner img {
+
+        height: 100%;
+        width: 100%;
+        min-width: 247px;
+        min-height: 186px;
+    }
+
+
+    .column .more {
+        font-size: 20px;
+        height: 20px;
+        text-decoration: none;
+        color: #0f0f0f;
+        padding-top: 20px;
+        padding-right: 14px;
+        display: block;
+    }
+
+    #hotTopic ol {
+        border: solid #dddddd 1px;
+        border-radius: 3px;
+        padding: 15px;
+
+    }
+
+    #hotTopic ol li {
+        width: 100%;
+        font-size: 16px;
+        line-height: 32px;
+        word-break: keep-all; /* 不换行 */
+        white-space: nowrap; /* 不换行 */
+        overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+
+    }
+
+    #hotTopic ol li a {
+        color: #333;
+        letter-spacing: 0px;
+    }
+
+    .xkxx_content li {
+        float: left;
+        width: 179px;
+        height: 130px;
+
+        list-style-type: none;
+        margin: 10px 15px 10px 0px;
+    }
+
+    .xkxx_content li img {
+        max-width: 114px;
+        max-height: 70px;
+        display: block;
+        margin: 0 auto;
+    }
+    .xkxx_content li a{
+        font-size: 10px;
+        font-weight: normal;
+        text-align: center;
+        padding: 0 10px;
+        text-decoration: none;
+
+        width: 150px;
+        word-wrap: break-word;
+        word-break: normal;
+    }
+
+}

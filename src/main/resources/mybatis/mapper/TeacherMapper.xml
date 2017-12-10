@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jxt.mapper.TeacherMapper">
+	
+	<resultMap id="teacherMap" type="teacher">
+		<id property="id" column="id" />
+		<result property="sex" column="sex" />
+	</resultMap>
+
+	<select id="queryById" parameterType="String" resultMap="teacherMap">
+		select * from teacher where id=#{id};
+	</select>
+
+	
+	<select id="queryAllTeacher" resultType="teacher">
+		select teacher.* from teacher inner join user on teacher.id=user.id order by registerTime desc;
+	</select>
+
+</mapper>
