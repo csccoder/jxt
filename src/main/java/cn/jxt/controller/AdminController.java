@@ -84,23 +84,14 @@ public class AdminController {
             //获取输出流
             //部署的tomcat容器中上传图片文件夹的绝对地址
 
-            String realPathAtTomcat= PathUtils.getTomcatContextWEBINFsPath(request.getSession().getServletContext());
-            String realPathAtJvm= PathUtils.getRealContextPathWEBINFPath(propertiseBean);
-            String location = propertiseBean.bannerImgSaveLocation + imgFileName + suffix;
-            String imgFileAtTomcat=realPathAtTomcat+location;
-            String imgFileAtJvm=realPathAtJvm+location;
-            Logger.getLogger(this.getClass()).warn("==================================");
-            Logger.getLogger(this.getClass()).warn("pathAtTomcat:"+imgFileAtTomcat);
-            Logger.getLogger(this.getClass()).warn("pathAtJvm:"+imgFileAtJvm);
-            if(!imgFileAtTomcat.equals(imgFileAtJvm)){
-                String path[]={imgFileAtTomcat,imgFileAtJvm};
-                saveFileToSpecialPath(multipartFile.getInputStream(),path);
-            }else{
-                String path[]={imgFileAtTomcat};
-                saveFileToSpecialPath(multipartFile.getInputStream(),path);
-            }
 
-            banner.setLocation(location);
+            String pathPrefix= PathUtils.getRealContextPathWEBINFPath(propertiseBean);
+            String fileName= imgFileName + suffix;
+            String realPath=pathPrefix+fileName;
+
+            saveFileToSpecialPath(multipartFile.getInputStream(),realPath);
+
+            banner.setLocation(fileName);
             bannerService.addBanner(banner);
             return new ModelAndView("redirect:banner");
         } catch (Exception e) {
@@ -120,22 +111,13 @@ public class AdminController {
             //获取输出流
             //部署的tomcat容器中上传图片文件夹的绝对地址
 
-            String realPathAtTomcat= PathUtils.getTomcatContextWEBINFsPath(request.getSession().getServletContext());
-            String realPathAtJvm= PathUtils.getRealContextPathWEBINFPath(propertiseBean);
-            String location = propertiseBean.bannerImgSaveLocation + imgFileName + suffix;
-            String imgFileAtTomcat=realPathAtTomcat+location;
-            String imgFileAtJvm=realPathAtJvm+location;
-            Logger.getLogger(this.getClass()).warn("==================================");
-            Logger.getLogger(this.getClass()).warn("pathAtTomcat:"+imgFileAtTomcat);
-            Logger.getLogger(this.getClass()).warn("pathAtJvm:"+imgFileAtJvm);
-            if(!imgFileAtTomcat.equals(imgFileAtJvm)){
-                String path[]={imgFileAtTomcat,imgFileAtJvm};
-                saveFileToSpecialPath(multipartFile.getInputStream(),path);
-            }else{
-                String path[]={imgFileAtTomcat};
-                saveFileToSpecialPath(multipartFile.getInputStream(),path);
-            }
-            banner.setLocation(location);
+            String pathPrefix= PathUtils.getRealContextPathWEBINFPath(propertiseBean);
+            String fileName= imgFileName + suffix;
+            String realPath=pathPrefix+fileName;
+
+            saveFileToSpecialPath(multipartFile.getInputStream(),realPath);
+
+            banner.setLocation(fileName);
             bannerService.updateBanner(banner);
             return new ModelAndView("redirect:banner");
         } catch (Exception e) {
@@ -143,13 +125,10 @@ public class AdminController {
         }
     }
 
-    public void saveFileToSpecialPath(InputStream stream, String[] path ) throws IOException {
-
-        for(int i=0;i<path.length;i++){
-            FileOutputStream fileOutputStream=new FileOutputStream(path[i]);
-            IOUtils.copy(stream,fileOutputStream);
-            fileOutputStream.close();
-        }
+    public void saveFileToSpecialPath(InputStream stream, String path ) throws IOException {
+        FileOutputStream fileOutputStream=new FileOutputStream(path);
+        IOUtils.copy(stream,fileOutputStream);
+        fileOutputStream.close();
         stream.close();
     }
 

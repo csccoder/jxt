@@ -5,10 +5,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PropertiseBean {
-    @Value("${bannerImgSaveLocation}")
-    public  String bannerImgSaveLocation;
-    @Value("${windowsTomcatContextPathLocation}")
-    public String windowsContextPathLocation;
-    @Value("${linuxTomcatContextPathLocation}")
-    public String linuxContextPathLocation;
+    @Value("${linuxBannerImgSaveLocation}")
+    public  String linuxBannerImgSaveLocation;
+    @Value("${windowsBannerImgSaveLocation}")
+    public String windowsBannerImgSaveLocation;
+
 }

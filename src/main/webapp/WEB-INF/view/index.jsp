@@ -43,7 +43,7 @@
         <div class="carousel-inner" role="listbox">
             <c:forEach var="banner" items="${bannerList}" varStatus="status">
                 <div class="item <c:if test="${status.index eq 0}"> active</c:if> ">
-                    <img src="${prefix}${banner.location}" alt="${banner.title}">
+                    <img src="/jxtImg/${banner.location}" alt="${banner.title}">
                     <div class="carousel-caption">
 
                     </div>

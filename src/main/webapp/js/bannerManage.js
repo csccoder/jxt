@@ -43,7 +43,7 @@ $('#bannerTable').bootstrapTable({
             //value: the field value.
             //row: the row record data.
             //index: the row index.
-            return "<a href=\""+value+"\" target='_blank'><img src=\"/jxt"+value+"\" style='width:200px'></a>";
+            return "<a href=\"/jxtImg/"+value+"\" target='_blank'><img src=\"/jxtImg/"+value+"\" style='width:200px'></a>";
         },
         align:'center'
 

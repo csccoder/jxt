@@ -11,16 +11,12 @@ import java.io.File;
  */
 public class PathUtils {
 
-    public static String getTomcatContextWEBINFsPath(ServletContext servletContext){
-        return servletContext.getRealPath("/");
-    };
-
     public static String getRealContextPathWEBINFPath(PropertiseBean propertiseBean){
         String osName=System.getProperty("os.name").toLowerCase();
         if(osName.indexOf("windows")>=0){
-            return propertiseBean.windowsContextPathLocation;
+            return propertiseBean.windowsBannerImgSaveLocation;
         }else{
-            return propertiseBean.linuxContextPathLocation;
+            return propertiseBean.linuxBannerImgSaveLocation;
         }
     }
 

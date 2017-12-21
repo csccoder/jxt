@@ -7,8 +7,6 @@ import cn.jxt.mapper.ShareMapper;
 import cn.jxt.service.ShareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.security.provider.SHA;
-
 import java.sql.Timestamp;
 import java.util.List;
 @Service

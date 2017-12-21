@@ -10,6 +10,7 @@
 <%
     String prefix=request.getContextPath();
     request.setAttribute("prefix",prefix);
+    request.setAttribute("jxtImg","/jxtImg/");
 %>
 <link href="${prefix}/css/loginModal.css" rel="stylesheet">
 <header id="header">
